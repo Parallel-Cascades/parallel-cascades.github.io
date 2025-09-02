@@ -1,0 +1,203 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Content from '~/components/widgets/Content.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
+import { YouTube } from 'astro-embed';
+
+const metadata = {
+  title: 'Parallel Cascades',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Asset Store',
+        href: 'https://assetstore.unity.com/publishers/103935',
+        target: '_blank',
+        icon: 'tabler:brand-unity',
+      },
+      { text: 'Get in touch', href: '#form' },
+    ]}
+  >
+    <Fragment slot="title">
+      Unity Games, Assets & Tools
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="text-blue-600 font-semibold">Parallel Cascades</span> create
+       high-quality video game content - assets for procedural generation, dynamic 3D shaders, and game systems.
+       We are committed to providing long-term support and regular updates to improve and expand our products.
+       <br />
+    </Fragment>
+    <Fragment slot="image">
+      <h3 class="text-lg font-semibold mb-2 text-center w-full">Latest Release:</h3>
+      <YouTube id="u9l4P8902RA" title="Procedural Celestial Body Materials 2.1.0" posterQuality="max" />
+      <style is:inline>
+        lite-youtube {
+          margin: 0 auto;
+          max-width: 70%;
+        }
+      </style>
+    </Fragment>
+  </Hero>
+
+  <!-- Start of Unity Assets Content Widgets **************** -->
+
+  <Content
+    id="unity-assets"
+    title="Unity Assets"
+    subtitle="Published on the Unity Asset Store, with glowing reviews and ongoing support."
+    defaultIcon="tabler:galaxy"
+    isReversed
+    imageWidth={1280}
+    imageHeight={720}
+    imageAspectRatio="16:9"
+    items={[
+      {
+        title: 'Dynamically create unique procedural space skyboxes inside the Unity Editor - with stars, nebulas, galactic glow.',
+      },
+      {
+        title: 'Included are shader effects and materials, editor tools and VFX Graph systems and particles for creating different styles of space skyboxes.',
+      },
+      {
+        title: 'Skyboxes can be rendered fully dynamically at runtime or statically captured to cubemap textures for maximum performance.',
+      }
+    ]}
+    image={{
+      src: '~/assets/images/unity-assets/skybox.png',
+      alt: 'Procedural Skybox Image',
+    }}
+    callToAction={{
+      target: '_blank',
+      text: 'Visit Store Page',
+      icon: 'tabler:chevron-right',
+      href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-space-skybox-295596',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Procedural Space Skybox
+      </h3>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+    <!-- Content Widget **************** -->
+
+  <Content
+    isAfterContent={true}
+    imageWidth={1280}
+    imageHeight={720}
+    imageAspectRatio="16:9"
+    items={[
+      {
+        title: 'Procedurally generate gas giants, asteroid rings and stars with this asset pack.',
+      },
+      {
+        title: 'Contains shaders, post-processing effects, editor tools and random generation scripts.'
+      },
+      {
+        title: 'Extensive sample materials and scenes with advanced setups like per-material lighting overrides and 3D Skyboxes with stencil buffer overrides and custom render passes.'
+      },
+    ]}
+    image={{
+      src: '~/assets/images/unity-assets/gas-giant.png',
+      alt: 'Procedural Celestial Body Materials Image',
+    }}
+    callToAction={{
+      target: '_blank',
+      text: 'Visit Store Page',
+      icon: 'tabler:chevron-right',
+      href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-celestial-body-materials-296362',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Procedural Celestial Body Materials
+      </h3>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+<!-- Start of In Development Content Widget **************** -->
+
+<Content
+    id="unity-assets"
+    title="In Development"
+    subtitle="Coming Soon"
+    defaultIcon="tabler:galaxy"
+    isReversed
+    imageWidth={1280}
+    imageHeight={720}
+    imageAspectRatio="16:9"
+    items={[
+      {
+        title: 'Now in early preview!',
+      },
+      {
+        title: 'Orbital mechanics simulation using Unity ECS, supporting thousands of bodies in orbit with mutual gravity interactions.'
+      },
+      {
+        title: 'Editor tools and gizmos for automatic orbit calculations and visualizations.',
+      }
+    ]}
+    image={{
+      src: '~/assets/images/unity-assets/nbody-sim.png',
+      alt: 'ECS N-Body Simulation Image',
+    }}
+    callToAction={{
+      target: '_blank',
+      text: 'Visit Github Repo',
+      icon: 'tabler:chevron-right',
+      href: 'https://github.com/Parallel-Cascades/ECSNBodySimulation',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        ECS N-Body Simulation
+      </h3>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+<!-- ContactUs Widget **************** -->
+
+<ContactUs
+    id="form"
+    title="Contact Form:"
+    subtitle="Get in touch if you need help, support, or want to learn more about our products."
+    inputs={[
+      {
+        type: 'text',
+        name: 'name',
+        label: 'Name',
+      },
+      {
+        type: 'email',
+        name: 'email',
+        label: 'Email',
+      },
+    ]}
+    textarea={{
+      label: 'Message',
+    }}
+    description="Expect a response within 24 business hours."
+  />
+
+</Layout>
