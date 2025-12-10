@@ -8,12 +8,20 @@ export const headerData = {
       text: 'Unity Assets',
       links: [
         {
-          text: 'Procedural Space Skybox',
-          href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-space-skybox-295596',
+          text: 'Procedural Planet Generation',
+          href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-planet-generation-339842',
         },
         {
           text: 'Procedural Celestial Body Materials',
           href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-celestial-body-materials-296362',
+        },
+        {
+          text: 'ECS N-Body Orbit Simulation',
+          href: 'https://assetstore.unity.com/packages/templates/systems/ecs-n-body-orbit-simulation-341370',
+        },
+        {
+          text: 'Procedural Space Skybox',
+          href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-space-skybox-295596',
         },
         {
           text: 'Vibrant 4K Starfield Skybox Pack',
@@ -27,6 +35,10 @@ export const headerData = {
         {
           text: 'Procedural Space Skybox',
           href: 'https://parallelcascades.com/procedural-space-skybox-documentation/',
+        },
+        {
+          text: 'Procedural Planet Generation',
+          href: 'https://parallelcascades.com/procedural-planet-generation/',
         },
         {
           text: 'Procedural Celestial Body Materials',

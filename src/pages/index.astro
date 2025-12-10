@@ -54,11 +54,49 @@ const metadata = {
     id="unity-assets"
     title="Unity Assets"
     subtitle="Published on the Unity Asset Store, with glowing reviews and ongoing support."
-    defaultIcon="tabler:galaxy"
     isReversed
     imageWidth={1280}
     imageHeight={720}
     imageAspectRatio="16:9"
+    items={[
+      {
+        title: 'Procedural Planet Generation is a Unity framework for creating procedural celestial bodies through shaders with editor tools for texture baking and scripts for in-editor and runtime procedural generation.',
+      },
+      {
+        title: 'Features advanced shaders and effects for moons, earth-like planets, gas giants, asteroid rings, and stars.',
+      },
+      {
+        title: 'Perfect for space strategy games, solar system maps, background environments, and skyboxes.',
+      }
+    ]}
+    image={{
+      src: '~/assets/images/unity-assets/procedural-planet-generation.png',
+      alt: 'Procedural Planet Generation Image',
+    }}
+    callToAction={{
+      target: '_blank',
+      text: 'Visit Store Page',
+      icon: 'tabler:chevron-right',
+      href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-planet-generation-339842',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Procedural Planet Generation
+      </h3>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <Content
+    isAfterContent={true}
+    imageWidth={1280}
+    imageHeight={720}
+    imageAspectRatio="16:9"
+    defaultIcon="tabler:galaxy"
     items={[
       {
         title: 'Dynamically create unique procedural space skyboxes inside the Unity Editor - with stars, nebulas, galactic glow.',
@@ -96,6 +134,7 @@ const metadata = {
 
   <Content
     isAfterContent={true}
+    isReversed
     imageWidth={1280}
     imageHeight={720}
     imageAspectRatio="16:9"
@@ -132,42 +171,39 @@ const metadata = {
     </Fragment>
   </Content>
 
-<!-- Start of In Development Content Widget **************** -->
-
-<Content
-    id="unity-assets"
-    title="In Development"
-    subtitle="Coming Soon"
+  <Content
+    isAfterContent={true}
     defaultIcon="tabler:galaxy"
-    isReversed
     imageWidth={1280}
     imageHeight={720}
     imageAspectRatio="16:9"
+    defaultIcon="tabler:universe"
     items={[
       {
-        title: 'Now in early preview!',
+        title: 'Free sample project with an orbital simulation with primary bodies and satellites - stars, gas giants, planets, moons, and asteroids, all affecting each other gravitationally and dynamically.'
       },
       {
-        title: 'Orbital mechanics simulation using Unity ECS, supporting thousands of bodies in orbit with mutual gravity interactions.'
+        title: 'Using Unity\'s Data-Oriented Technology Stack (DOTS), this asset demonstrates high-performance gravitational physics through a clean, extensible ECS architecture.',
       },
       {
-        title: 'Editor tools and gizmos for automatic orbit calculations and visualizations.',
-      }
+        title: 'VFX Graph integration syncs with the ECS world to render beautiful orbital trails that visualize the complex movement of N-Body celestial bodies through space in real-time.',
+      },
+
     ]}
     image={{
       src: '~/assets/images/unity-assets/nbody-sim.png',
-      alt: 'ECS N-Body Simulation Image',
+      alt: 'ECS N-Body Orbit Simulation Image',
     }}
     callToAction={{
       target: '_blank',
-      text: 'Visit Github Repo',
+      text: 'Visit Store Page',
       icon: 'tabler:chevron-right',
-      href: 'https://github.com/Parallel-Cascades/ECSNBodySimulation',
+      href: 'https://assetstore.unity.com/packages/templates/systems/ecs-n-body-orbit-simulation-341370',
     }}
   >
     <Fragment slot="content">
       <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        ECS N-Body Simulation
+        ECS N-Body Orbit Simulation
       </h3>
     </Fragment>
 
