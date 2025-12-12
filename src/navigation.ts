@@ -12,8 +12,8 @@ export const headerData = {
           href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-planet-generation-339842',
         },
         {
-          text: 'Procedural Celestial Body Materials',
-          href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-celestial-body-materials-296362',
+          text: 'Procedural Planet Generation Lite',
+          href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-planet-generation-lite-sample-pack-296362',
         },
         {
           text: 'ECS N-Body Orbit Simulation',
