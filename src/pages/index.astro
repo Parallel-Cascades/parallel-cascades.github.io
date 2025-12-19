@@ -3,6 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Content from '~/components/widgets/Content.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import { YouTube } from 'astro-embed';
 
 const metadata = {
@@ -174,6 +175,9 @@ const metadata = {
     </Fragment>
   </Content>
 
+  <BlogLatestPosts
+    title="Technical Articles & Tutorials"
+  />
 <!-- ContactUs Widget **************** -->
 
 <ContactUs

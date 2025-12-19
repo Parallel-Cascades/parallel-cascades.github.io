@@ -1,3 +1,5 @@
+import {getBlogPermalink} from "~/utils/permalinks.ts";
+
 export const headerData = {
   links: [
     {
@@ -45,7 +47,11 @@ export const headerData = {
           href: 'https://parallelcascades.com/procedural-celestial-body-materials/',
         },
       ],
-    }
+    },
+    {
+      text: 'Articles and Tutorials',
+      href: getBlogPermalink(),
+    },
   ],
 };
 
@@ -57,6 +63,8 @@ export const footerData = {
     { ariaLabel: 'YouTube', icon: 'tabler:brand-youtube', href: 'https://www.youtube.com/channel/UCKGnHCi46kx8paafFJvj3Lg' },
     { ariaLabel: 'Itch', icon: 'tabler:brand-itch', href: 'https://parallel-cascades.itch.io/' },
     { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/parallel-cascades' },
+    { ariaLabel: 'Ko-fi', icon: 'tabler:mug', href: 'https://ko-fi.com/parallelcascades' },
+
   ],
   footNote: `
     This website is built with the <a class="text-blue-600 underline dark:text-muted" href="https://github.com/arthelokyo/astrowind"> AstroWind</a> template.

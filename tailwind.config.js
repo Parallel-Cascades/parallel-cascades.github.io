@@ -32,7 +32,27 @@ export default {
     },
   },
   plugins: [
-    typographyPlugin,
+    typographyPlugin({
+      theme: {
+        extend: {
+          typography: {
+            DEFAULT: {
+              css: {
+                'code': {
+                  fontSize: '0.9em',
+                },
+                'pre': {
+                  fontSize: '0.9em',
+                },
+                'pre code': {
+                  fontSize: '1em',
+                },
+              },
+            },
+          },
+        },
+      },
+    }),
     plugin(({ addVariant }) => {
       addVariant('intersect', '&:not([no-intersect])');
     }),

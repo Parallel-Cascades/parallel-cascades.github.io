@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    /* Font size multipliers - adjust these to change all text sizes */
+    --text-scale: 1;
+    --code-scale: 0.60;
+  }
+}
+
 @layer utilities {
   .bg-page {
     background-color: var(--aw-color-bg-page);
@@ -90,3 +98,78 @@
 .dd *:first-child {
   margin-top: 0;
 }
+
+/* Inline code should match text size, not code size */
+.prose code {
+  font-size: calc(1em * var(--text-scale)) !important;
+}
+
+.prose pre {
+  font-size: calc(1em * var(--code-scale)) !important;
+}
+
+.prose pre code {
+  font-size: 1em !important;
+}
+
+.prose p,
+.prose li,
+.prose td,
+.prose th {
+  font-size: calc(1rem * var(--text-scale)) !important;
+}
+
+.prose h1 {
+  font-size: calc(2.25rem * var(--text-scale)) !important;
+}
+
+.prose h2 {
+  font-size: calc(1.875rem * var(--text-scale)) !important;
+}
+
+.prose h3 {
+  font-size: calc(1.5rem * var(--text-scale)) !important;
+}
+
+.prose h4 {
+  font-size: calc(1.25rem * var(--text-scale)) !important;
+}
+
+.prose-md code {
+  font-size: calc(1em * var(--text-scale)) !important;
+}
+
+.prose-md pre {
+  font-size: calc(1em * var(--code-scale)) !important;
+}
+
+.prose-lg code {
+  font-size: calc(1em * var(--text-scale)) !important;
+}
+
+.prose-lg pre {
+  font-size: calc(1em * var(--code-scale)) !important;
+}
+
+.prose-lg p,
+.prose-lg li,
+.prose-lg td,
+.prose-lg th {
+  font-size: calc(1.125rem * var(--text-scale)) !important;
+}
+
+.prose-xl code {
+  font-size: calc(1em * var(--text-scale)) !important;
+}
+
+.prose-xl pre {
+  font-size: calc(1em * var(--code-scale)) !important;
+}
+
+.prose-xl p,
+.prose-xl li,
+.prose-xl td,
+.prose-xl th {
+  font-size: calc(1.25rem * var(--text-scale)) !important;
+}
+
