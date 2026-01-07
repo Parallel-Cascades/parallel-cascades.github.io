@@ -2,7 +2,7 @@
 publishDate: 2026-01-06
 title: 'Planet Texture Baking in Unity, Part 1: Equirectangular Textures'
 excerpt: Setting up texture baking output inside Unity with a Shader Graph. Converting 3D planet position to spherical coordinates. Editor scripts for texture capture from a material. 
-image: '~/assets/images/blog/planet-texture-baking/planet-unwrap.png'
+image: '~/assets/images/blog/planet-texture-baking/planet-uv-cover.png'
 tags:
   - unity
   - procedural-generation
