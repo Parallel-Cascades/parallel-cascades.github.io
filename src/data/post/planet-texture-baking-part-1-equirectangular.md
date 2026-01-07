@@ -157,8 +157,8 @@ but in the Z-component of that direction."
    
 For the **Y component**, **cos(theta)** represents the height, going from Y=1 at the north pole (theta=0) down to Y=-1 at the south pole (theta=π).
 
-Essentially, `cos(phi)` and `sin(phi)` trace out a circle in the XZ plane (like a clock face viewed from above), and
-`sin(theta)` scales that circle's radius based on the latitude.
+Essentially, cos(φ) and sin(φ) determine x and z components and
+sin(θ) matches the sphere's radius based on the latitude (y-component).
 
 We can implement this in a custom function node:
 
@@ -168,6 +168,11 @@ Note that PI is automatically defined in Shader Graph HLSL code.
 
 And connect to the position input of our continent function:
 ![Continent Function with UV to Spherical](../../assets/images/blog/planet-texture-baking/uv-to-spherical-connected.png)
+
+Now you should see the correctly unwrapped planet texture when viewing the quad:
+![Quad UV Correct](../../assets/images/blog/planet-texture-baking/quad-uv-correct.png)
+
+This will distort the spherical planet surface in turn, so next we will add a way to switch between input coordinates.
 
 ### Adding Baking Mode to the Shader
 
@@ -179,19 +184,19 @@ two modes. Add a Boolean Keyword property called "Bake Output" and use it to swi
 And then for all other terrain layer functions that use the position - oceans, ice caps, surface color:
 ![All Bake Modes Connected](../../assets/images/blog/planet-texture-baking/all-bake-modes-connected.png)
 
-To test that this works correctly, create a quad in the scene, assign the planet material to it, and enable the Bake Output keyword.
-You should see the correctly unwrapped planet texture:
-![Quad UV Correct](../../assets/images/blog/planet-texture-baking/quad-uv-correct.png)
+With this keyword we can switch between normal rendering mode and baking mode in the editor script we're going to write
+later.
 
 ### Emission Output
-Finally for our shader, we want to use the Bake Output keyword to switch the shader output to emission - this makes sure we
-get the correct color output when baking, without any lighting interference, like we would with an unlit shader:
+Finally for our shader, we want to use the Bake Output keyword to switch the shader color output to emission and disable
+the regular color contribution. This makes sure we get the correct color output when baking, without any lighting interference, like we would with an unlit shader:
 ![Emission Output Set Up](../../assets/images/blog/planet-texture-baking/emission-output-set-up.png)
 
 ## Setting up the Editor Script
 
 Now that we have the shader set up to bake using UV coordinates, we need to create an Editor script that will render the material to a texture and save it to disk.
-We will use Unity's MenuItem attribute to add a context menu option when right-clicking on the material in the Project window.
+For simplicity, we will use Unity's MenuItem attribute to add a context menu option when right-clicking on the material in the Project window. If you wanted you
+could set up a Custom Editor window or Scriptable Wizard instead.
 
 We create a new C# script called *MaterialTextureBaker.cs*. This will be an editor script, so make sure it is placed in
 an *Editor* folder:
