@@ -13,27 +13,28 @@ metadata:
 # Procedural Planet Shaders and Texture Baking
 
 There are many different approaches to procedural planet generation: mesh-based deformation, volumetric raymarching, advanced mesh
-partitioning techniques for LOD and landable planets. For the game I'm working on, I chose a **shader-based** approach. 
-I don't require landable planets, and it's straightforward to build and reason about using Unity's default tools.
+partitioning techniques for LOD and landable planets. Here, I'll show you a simple **shader-based** approach for Unity's URP. 
+You might use this in a space strategy game where you won't be landing on planets but want to display many unique planets
+on a star map.
 
-**Procedural shaders** also provide infinite (albeit similar) variations and instant real-time customization, and they
-don't take up disk space like large 4K textures. But they come with a **high cost** on **GPU performance**. On modern GPUs this is
-manageable, you still get good framerates without perfectly optimized shaders. But it's still wasteful to recalculate
-the surfaces of static planets every frame, and very complex shaders can still impact performance significantly.
+**Procedural shaders** provide infinite (albeit similar) variations and instant real-time customization. 
+But they come with a **high cost** on **GPU performance**. On modern GPUs, this is manageable - you can get good
+framerates without perfectly optimized shaders. But it's still wasteful to recalculate the surfaces of static planets 
+every frame, and very complex shaders can end up impacting performance significantly.
 
 ![Procedural Planet Example](../../assets/images/blog/planet-texture-baking/procedural-planet-sample.png)
 <figure style="text-align: center;">
-  <figcaption style="font-size: 0.9em; color: #666; margin-top: 0.5em;">A procedural planet shader with multiple shader functions: continents and oceans, ice caps, heightmap detail, clouds and smoothness, atmospheric glow.</figcaption>
+  <figcaption style="font-size: 0.9em; color: #666; margin-top: 0.5em;">A procedural planet from Procedural Planet Generation with multiple shader functions: continents and oceans, ice caps, heightmap detail, clouds and smoothness, atmospheric glow.</figcaption>
 </figure>
 
 Traditional workflows may have you design materials in **Blender**, then bake their outputs to textures for importing in
-Unity. That works, but switching between tools costs time, and what Blender's lighting settings and exported textures 
-don't always remain consistent when importing in Unity. **Baking inside Unity** lets you see your planets accurately
-in-engine immediately. Later we can even set up runtime procedural baking to generate planets entirely in-game.
+Unity. That works, but switching between tools costs time, and Blender's lighting settings and exported textures 
+don't always remain consistent when imported in Unity. **Baking inside Unity** will get you planet textures that look
+1:1 with the procedural shader texture but at a fraction of the performance cost.
 
-In the first part of this tutorial series, we'll set up **equirectangular texture baking** for a simple Earth-like planet shader. 
-
-# Tutorial
+In the first part of this tutorial series, we'll set up **equirectangular texture baking** for a simple Earth-like planet shader's 
+color texture. Future tutorials will include more advanced techniques like cubemap baking, normal and other mask baking,
+and flowmaps for gas giants and stars.
 
 ## Project Setup
 
@@ -41,23 +42,23 @@ To get started, I've provided you with a Unity project that has the foundation f
 texture baking utility. It's built with Unity 6000.0.64f1 and the Universal Render Pipeline (URP). This includes a simple
 Earth-like planet shader in a blank scene that we will modify to add texture baking functionality.
 
-You can clone the project from [this](https://github.com/Parallel-Cascades/planet-texture-baking
-) Github repository, or download the *.unitypackage* from the Releases section and import it into
-your own project. If you're not interested in the tutorial, you can also get the completed project from the same repository.
+You can clone the project from [this](https://github.com/Parallel-Cascades/planet-texture-baking)
+Github repository, or download the *.unitypackage* from the Releases section and import it into
+your own project. If you just want to see the completed files, you can also get the completed project from the same repository.
 
-For the full advanced procedural planets system, check out the [Procedural Planet Generation](https://assetstore.unity.com/packages/vfx/shaders/procedural-planet-generation-339842) asset on the Unity Asset Store.
+For the full advanced procedural planets system, take a look at the [Procedural Planet Generation](https://assetstore.unity.com/packages/vfx/shaders/procedural-planet-generation-339842) asset on the Unity Asset Store.
 
-## Starter Scene
+### Starter Scene
 Open the provided sample scene to get started:
 
 ![Starter Planet](../../assets/images/blog/planet-texture-baking/starter-scene.png)
 
-## Planet Shader
+### Planet Shader
 
 The planet shader is built with Shader Graph. Among other benefits, I prefer making shaders with Shader Graph because 
 the visual node previews enable quick debugging and experimentation.
 
-If you're unfamiliar with Shader Graph, check the official Unity [documentation](https://docs.unity3d.com/Packages/com.unity.shadergraph@17.5/manual/Getting-Started.html).
+If you're unfamiliar with Shader Graph, refer to the official Unity [documentation](https://docs.unity3d.com/Packages/com.unity.shadergraph@17.5/manual/Getting-Started.html).
 
 We will edit this shader to add texture baking functionality. Open the **Simple Earth-like Planet** Shader Graph.
 
@@ -65,6 +66,13 @@ We will edit this shader to add texture baking functionality. Open the **Simple 
 
 You can see the different layers that make up the planet surface: continents, oceans, ice caps, and surface color. This 
 is a very simplified version of a planet shader that will allow us to focus on the texture baking process.
+
+The foundational building blocks of procedural planet shaders are 3D noise functions that we manipulate in different
+ways to get natural-looking terrain features. If you want to learn more about noise functions, I recommend the following
+resources: [Inigo Quilez - Fractal Brownian Motion](https://iquilezles.org/articles/fbm/) and [Catlike Coding - Pseudorandom Noise](https://catlikecoding.com/unity/tutorials/pseudorandom-noise/)
+
+The main performance cost of the procedural shader comes from these noise functions being calculated every frame for
+every pixel on the screen that covers the planet mesh.
 
 ### Shader Performance
 
@@ -76,8 +84,8 @@ Testing on a GTX 3060, we set the game view to **4K resolution** to have the lar
 So we get around 80 FPS, or about 12 ms per frame, when a simple static planet fills the screen.
 
 This is before adding more complex detail to the planet. Heightmap mountains require another layer of noise. If we want
-to have procedural normals, we will need to apply smoothing through taking multiple samples for the noise functions per
-each pixel. All this adds up quickly.
+to have procedural normals, we will need to apply smoothing by taking multiple samples for the noise functions per
+pixel. All this adds up quickly.
 
 Replacing these procedural noise calculations with a texture sample will improve performance significantly. This tutorial
 will show how to set up the texture baking for the surface color and then sample it as a texture.
@@ -92,19 +100,19 @@ We will apply our planet material to a temporary flat quad in front of an orthog
 Then we use a render texture to capture that camera output, read back the pixels into a Texture2D, and save that to disk as a PNG file.
 
 ### Flat Quad UV Mapping
-If we place our material on a quad, we get this stretched out and distorted texture:
+If we place our material on a quad, we get this stretched-out and distorted texture:
 
 ![Quad UV Distorted](../../assets/images/blog/planet-texture-baking/quad-uv-distorted.png)
 
-In the planet shader, our noise functions receive the 3D **Object Position** of each point on the sphere's surface. 
-But the flat quad only has 2D position.
+In the planet shader, our noise functions receive the normalized 3D **Object Position** of each point on the sphere's surface. 
+But the flat quad only has 2 dimensions and normalizing object position.
 
 So we will need to figure out the mappings between the quad's 2D UV coordinates and the 3D positions on the sphere.
 
 ![Planet Unwrapped Image](../../assets/images/blog/planet-texture-baking/planet-unwrap.png)
 
 First, in order to bake the texture, we need to be able to convert 2D UV coordinates back into 3D positions on a unit sphere.
-With this we can sample our 3D procedural noise functions with 2D UVs and store their outputs on a texture.
+With this, we can sample our 3D procedural noise functions with 2D UVs and store their outputs on a texture.
 The result is what's called **equirectangular projection** (also known as a latitude-longitude projection) - the same projection
 used for world maps where the whole globe is unwrapped into a rectangle.
 
@@ -114,11 +122,11 @@ We will achieve this conversion with simple trigonometry by isolating the differ
 Keep in mind that on a unit sphere, x,y,z coordinates range from -1 to 1 - so we want to convert our UVs into direction
 vectors essentially.
 
-For a detailed exploration of spherical coordinates and conversions check out scratchapixel's [article](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/spherical-coordinates-and-trigonometric-functions.html).
+For a detailed exploration of spherical coordinates and conversions, see scratchapixel's [article](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/spherical-coordinates-and-trigonometric-functions.html).
 
 Here I'll break down the math behind converting a 2D UV coordinate into a 3D position on a sphere:
 
-#### 1. We take the 2D UV coordinates from the quad. These are in the range [0,1] for both U and V. We convert them to spherical angles phi and theta:
+#### 1. We take the 2D UV coordinates from the quad. These are in the range [0,1] for both U and V. We convert them to spherical angles phi and theta.
 
 This uses **spherical coordinates**, where any point on a sphere can be described using two angles:
 - **Phi (φ)**: The longitude angle, rotating around the vertical (Y) axis. Goes from 0 to 2π (0° to 360°)
@@ -156,14 +164,14 @@ We can implement this in a custom function node:
 
 ![Custom Function for UVtoSpherical](../../assets/images/blog/planet-texture-baking/custom-function-uv-to-dir.png)
 
-(Note that PI is automatically defined in Shader Graph HLSL code)
+Note that PI is automatically defined in Shader Graph HLSL code.
 
 And connect to the position input of our continent function:
 ![Continent Function with UV to Spherical](../../assets/images/blog/planet-texture-baking/uv-to-spherical-connected.png)
 
 ### Adding Baking Mode to the Shader
 
-We don't want to always have UV input on in our shader, so we can to add a boolean keyword that switches between the 
+We don't want to always have UV input on in our shader, so we can add a boolean keyword that switches between the 
 two modes. Add a Boolean Keyword property called "Bake Output" and use it to switch between using Object Position and UV-to-Spherical position:
 
 ![Baking Branch Shader Graph](../../assets/images/blog/planet-texture-baking/baking-branch-position.png)
@@ -180,7 +188,7 @@ Finally for our shader, we want to use the Bake Output keyword to switch the sha
 get the correct color output when baking, without any lighting interference, like we would with an unlit shader:
 ![Emission Output Set Up](../../assets/images/blog/planet-texture-baking/emission-output-set-up.png)
 
-### Setting up the Editor Script
+## Setting up the Editor Script
 
 Now that we have the shader set up to bake using UV coordinates, we need to create an Editor script that will render the material to a texture and save it to disk.
 We will use Unity's MenuItem attribute to add a context menu option when right-clicking on the material in the Project window.
@@ -239,7 +247,7 @@ public static class MaterialTextureBaker
 }
 ```
 
-We also need to setup the *TextureUtilities* class:
+We also need to set up the *TextureUtilities* class:
 
 To actually get a texture from a material, we can set up a temporary orthographic camera and put the material on a quad
 primitive mesh (this is just a plane with 4 vertices). We then render the camera to a RenderTexture and read back the pixels into a Texture2D.
@@ -354,10 +362,10 @@ With this we will have a new context menu item by right-clicking on the material
 
 We can bake the texture and see that it looks like the quad output we saw earlier.
 
-### Sampling a baked texture in the shader
+## Sampling a baked texture in the shader
 
 Now that we have a baked texture, we can modify our shader to sample from it instead of running the noise functions. We 
-need to perform the opposite transformation of our earlier cartesian to spherical transformation: We have a 2D texture to sample from,
+need to perform the opposite transformation of our earlier 3d-pos-to-spherical-to-uv transformation: We have a 2D texture to sample from,
 but we have a 3D sphere with object positions to sample with. So we need a conversion from 3D position to UV coordinates:
 
 ```hlsl
@@ -375,7 +383,7 @@ void spherePositionToUV(float3 position, out float2 uv)
 ```
 
 We can also set this up in a custom function node and connect it to a Sample Texture 2D node to get the color from the baked texture.
-Let's also add another boolean keyword "Static Texture Enabled" to allow us to quickly switch between procedural and baked texture modes, to compare 
+Let's also add another boolean keyword, "Static Texture Enabled," to allow us to quickly switch between procedural and baked texture modes to compare 
 performance and visuals:
 
 ![Sampled Texture](../../assets/images/blog/planet-texture-baking/static-texture-sampling-shader-graph.png)
@@ -390,12 +398,12 @@ We can adjust the resolution of the baked texture to get more detail, in case th
 be wary of going too high and using too much memory for your textures. The baking time goes up quadratically with 
 resolution as well.
 
-## Fixing Seam
-There seems to be an issue with a seam appearing on the texture where the UVs wrap around from 1 back to 0.
+### Fixing the Seam
+There seems to be an issue with a seam appearing on the planet at the location where the UVs wrap around from 1 back to 0.
 ![Seam Issue](../../assets/images/blog/planet-texture-baking/static-texture-seam.png)
 
-This is actually a common problem with sampling equirectangular textures and its solution is straightforward and
-documented in the shader graph manual: https://docs.unity3d.com/Packages/com.unity.shadergraph@17.4/manual/Sample-Texture-2D-Node.html#example-graph-usage
+This is actually a common problem with sampling equirectangular textures, and its solution is straightforward and
+documented in the Shader Graph manual: https://docs.unity3d.com/Packages/com.unity.shadergraph@17.4/manual/Sample-Texture-2D-Node.html#example-graph-usage
 
 We need to set the Mip Sampling Mode on our Sample Texture 2D node to Gradient:
 ![Mip Sampling Mode](../../assets/images/blog/planet-texture-baking/mip-sampling-mode-gradient.png)
@@ -405,10 +413,9 @@ And connect our normalized position to the DDX and DDY inputs via DDX and DDY no
 
 This fixes the seam problem and completes this part of the tutorial!
 
-You can get the completed project from the GitHub repo:
-github.com/Parallel-Cascades/planet-texture-baking
+[Completed project](https://github.com/Parallel-Cascades/planet-texture-baking/tree/part-1)
 
-# Conclusion
+## Conclusion
 I've shown you one simple method to bake procedural planet textures inside the Unity Editor using a custom script. But there
 are still ways to improve this.
 
@@ -423,6 +430,6 @@ In the next tutorial, I will show you a method to bake textures using a cubemap 
 ![Cubemap](../../assets/images/blog/planet-texture-baking/cubemap.png)
 
 If you'd like to practice with more complex planet shaders, the [Procedural Planet Generation Lite Samples](https://assetstore.unity.com/packages/vfx/shaders/procedural-planet-generation-lite-sample-pack-296362) asset is **free**
-on the Unity Asset Store and contains moons, more advanced Earth-like planets, gas giants and stars.
+on the Unity Asset Store and contains moons, more advanced Earth-like planets, gas giants, and stars.
 
 If this tutorial was useful to you, and you would like to see more like it, consider supporting me on [Ko-fi](https://ko-fi.com/parallelcascades)
