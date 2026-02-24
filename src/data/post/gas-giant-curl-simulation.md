@@ -1,7 +1,7 @@
 ﻿---
 publishDate: 2026-02-24
 title: 'Gas Giant Curl Simulation in Unity'
-excerpt: Custom Render Textures for shader simulation of curl flow. Procedural 3D curl generation. Faking a fluid simulation cheaply at runtime with double-buffered textures.
+excerpt: Custom Render Textures for shader simulation of curl flow. Procedural 3D curl generation. GitHub tutorial project.
 image: '~/assets/images/blog/gas-giant-curl-simulation/gas-giant-curl-cover.png'
 tags:
   - unity
