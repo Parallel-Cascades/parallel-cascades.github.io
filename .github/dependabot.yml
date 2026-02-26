@@ -9,3 +9,23 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    groups:
+      astro:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
+      vite:
+        patterns:
+          - "vite"
+          - "vite-*"
+          - "@vitejs/*"
+      tooling:
+        patterns:
+          - "eslint*"
+          - "@typescript-eslint/*"
+          - "prettier"
+          - "typescript"
+      safe-deps: # catch-alls for dependencies that don't fit into the above groups
+        update-types:
+          - "minor"
+          - "patch"
