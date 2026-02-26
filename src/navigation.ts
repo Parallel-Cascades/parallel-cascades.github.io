@@ -63,6 +63,7 @@ export const footerData = {
     { ariaLabel: 'YouTube', icon: 'tabler:brand-youtube', href: 'https://www.youtube.com/channel/UCKGnHCi46kx8paafFJvj3Lg' },
     { ariaLabel: 'Itch', icon: 'tabler:brand-itch', href: 'https://parallel-cascades.itch.io/' },
     { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/parallel-cascades' },
+    { ariaLabel: 'Bluesky', icon: 'tabler:brand-bluesky', href: 'https://bsky.app/profile/parallel-cascades.bsky.social' },
     { ariaLabel: 'Ko-fi', icon: 'tabler:mug', href: 'https://ko-fi.com/parallelcascades' },
 
   ],
