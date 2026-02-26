@@ -25,7 +25,3 @@ updates:
           - "@typescript-eslint/*"
           - "prettier"
           - "typescript"
-      safe-deps: # catch-alls for dependencies that don't fit into the above groups
-        update-types:
-          - "minor"
-          - "patch"
