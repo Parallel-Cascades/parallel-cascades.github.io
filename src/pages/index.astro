@@ -38,7 +38,7 @@ const metadata = {
        <br />
     </Fragment>
     <Fragment slot="image">
-      <h3 class="text-lg font-semibold mb-2 text-center w-full">Latest Release:</h3>
+      <h3 class="text-lg font-semibold mb-2 text-center w-full">Featured:</h3>
       <YouTube id="jGfVV7PNJH0" title="Procedural Planet Generation" posterQuality="max" />
       <style is:inline>
         lite-youtube {
@@ -55,6 +55,45 @@ const metadata = {
     id="unity-assets"
     title="Unity Assets"
     subtitle="Published on the Unity Asset Store, with glowing reviews and ongoing support."
+    imageWidth={1280}
+    imageHeight={720}
+    imageAspectRatio="16:9"
+    defaultIcon="tabler:camera"
+    items={[
+      {
+        title: 'A collection of strategy camera controllers built for PC games with Mouse+Keyboard controls using Unity\'s New Input System.',
+      },
+      {
+        title: 'Includes RTS (Blizzard-style), Tactical War (Total War-style), Simulation, and Orthographic (Isometric) camera modes with sample scenes and ready-to-use prefabs.',
+      },
+      {
+        title: 'Advanced features include automatic elevation adjustment, interactable minimaps for UIToolkit and UGUI, a custom cursor state system, and edge-scrolling support.',
+      },
+    ]}
+    image={{
+      src: '~/assets/images/unity-assets/strategy-camera-controllers.png',
+      alt: 'Strategy Camera Controllers Image',
+    }}
+    callToAction={{
+      target: '_blank',
+      text: 'Visit Store Page',
+      icon: 'tabler:chevron-right',
+      href: 'https://assetstore.unity.com/packages/templates/systems/strategy-camera-controllers-370822',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Strategy Camera Controllers
+      </h3>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <Content
+    isAfterContent={true}
     isReversed
     imageWidth={1280}
     imageHeight={720}

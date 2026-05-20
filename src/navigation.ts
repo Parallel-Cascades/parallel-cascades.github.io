@@ -10,6 +10,10 @@ export const headerData = {
       text: 'Unity Assets',
       links: [
         {
+          text: 'Strategy Camera Controllers',
+          href: 'https://assetstore.unity.com/packages/templates/systems/strategy-camera-controllers-370822',
+        },
+        {
           text: 'Procedural Planet Generation',
           href: 'https://assetstore.unity.com/packages/vfx/shaders/procedural-planet-generation-339842',
         },
@@ -29,11 +33,19 @@ export const headerData = {
           text: 'Vibrant 4K Starfield Skybox Pack',
           href: 'https://assetstore.unity.com/packages/2d/textures-materials/sky/vibrant-4k-starfield-skybox-pack-292597',
         },
+        {
+          text: 'Free Camera Controller Pack',
+          href: 'https://assetstore.unity.com/packages/tools/camera/camera-controllers-pack-strategy-fly-orbit-368534',
+        },
       ],
     },
     {
       text: 'Documentation',
       links: [
+        {
+          text: 'Strategy Camera Controllers',
+          href: 'https://parallelcascades.com/strategy-camera-controllers-docs/latest/',
+        },
         {
           text: 'Procedural Space Skybox',
           href: 'https://parallelcascades.com/procedural-space-skybox-documentation/',
