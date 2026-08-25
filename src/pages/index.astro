@@ -19,27 +19,28 @@ const metadata = {
     actions={[
       {
         variant: 'primary',
+        text: 'Colorways',
+        href: 'https://parallel-cascades.itch.io/colorways',
+        target: '_blank',
+        icon: 'tabler:device-gamepad-2',
+      },
+      { text: 'Get in touch', href: '#form' },
+            {
+        variant: 'primary',
         text: 'Asset Store',
         href: 'https://assetstore.unity.com/publishers/103935',
         target: '_blank',
         icon: 'tabler:brand-unity',
-      },
-      { text: 'Get in touch', href: '#form' },
+      }
     ]}
   >
     <Fragment slot="title">
-      Unity Games, Assets & Tools
+      Indie Games & Assets
     </Fragment>
 
-    <Fragment slot="subtitle">
-      <span class="text-blue-600 font-semibold">Parallel Cascades</span> create
-       high-quality video game content - assets for procedural generation, dynamic 3D shaders, and game systems.
-       We are committed to providing long-term support and regular updates to improve and expand our products.
-       <br />
-    </Fragment>
     <Fragment slot="image">
       <h3 class="text-lg font-semibold mb-2 text-center w-full">Featured:</h3>
-      <YouTube id="jGfVV7PNJH0" title="Procedural Planet Generation" posterQuality="max" />
+      <YouTube id="KQ56lKG0kcQ" title="Colorways - Lonely Neon Roads" posterQuality="max" />
       <style is:inline>
         lite-youtube {
           margin: 0 auto;
@@ -48,6 +49,36 @@ const metadata = {
       </style>
     </Fragment>
   </Hero>
+
+    <Content
+    id="games"
+    title="Unity Games"
+    imageWidth={1280}
+    imageHeight={720}
+    imageAspectRatio="16:9"
+    defaultIcon="tabler:device-gamepad-2"
+    items={[
+      {
+        title: 'Colorways is a simple traffic management game.',
+      },
+      {
+        title: 'Quickly manage colorful traffic while avoiding crashes and overflow.',
+      },
+      {
+        title: 'Compete against other players in the global leaderboards.',
+      },
+    ]}
+    image={{
+      src: '~/assets/images/games/capsule.png',
+      alt: 'Colorways Image',
+    }}
+    callToAction={{
+      target: '_blank',
+      text: 'Visit Demo Page',
+      icon: 'tabler:chevron-right',
+      href: 'https://parallel-cascades.itch.io/colorways',
+    }}
+  />
 
   <!-- Start of Unity Assets Content Widgets **************** -->
 

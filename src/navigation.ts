@@ -6,6 +6,10 @@ export const headerData = {
       text: 'Home',
       href: '/',
     },
+    {
+      text: 'Games',
+      href: '/#games',
+    },
        {
       text: 'Unity Assets',
       links: [
@@ -40,28 +44,7 @@ export const headerData = {
       ],
     },
     {
-      text: 'Documentation',
-      links: [
-        {
-          text: 'Strategy Camera Controllers',
-          href: 'https://parallelcascades.com/strategy-camera-controllers-docs/latest/',
-        },
-        {
-          text: 'Procedural Space Skybox',
-          href: 'https://parallelcascades.com/procedural-space-skybox-documentation/',
-        },
-        {
-          text: 'Procedural Planet Generation',
-          href: 'https://parallelcascades.com/procedural-planet-generation/',
-        },
-        {
-          text: 'Procedural Celestial Body Materials',
-          href: 'https://parallelcascades.com/procedural-celestial-body-materials/',
-        },
-      ],
-    },
-    {
-      text: 'Articles and Tutorials',
+      text: 'Blog',
       href: getBlogPermalink(),
     },
   ],
