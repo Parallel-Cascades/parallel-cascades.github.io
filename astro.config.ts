@@ -24,6 +24,10 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
+  redirects: {
+    '/planet-texture-baking-part-1-equirectangular': '/planet-texture-baking',
+  },
+
   integrations: [
     tailwind({
       applyBaseStyles: false,

@@ -1,6 +1,6 @@
 ---
 publishDate: 2026-01-06
-title: 'Planet Texture Baking in Unity, Part 1: Equirectangular Textures'
+title: 'Planet Texture Baking in Unity'
 excerpt: Setting up texture baking output inside Unity with a Shader Graph. Converting 3D planet position to spherical coordinates. Editor scripts for texture capture from a material. 
 image: '~/assets/images/blog/planet-texture-baking/planet-uv-cover.png'
 tags:
@@ -8,7 +8,7 @@ tags:
   - procedural-generation
   - texture-baking
 metadata:
-  canonical: https://parallelcascades.com/planet-texture-baking-part-1-equirectangular
+  canonical: https://parallelcascades.com/planet-texture-baking
 ---
 # Procedural Planet Shaders and Texture Baking
 
@@ -32,8 +32,8 @@ Unity. That works, but switching between tools costs time, and Blender's lightin
 don't always remain consistent when imported in Unity. **Baking inside Unity** will get you planet textures that look
 1:1 with the procedural shader texture but at a fraction of the performance cost.
 
-In the first part of this tutorial series, we'll set up **equirectangular texture baking** for a simple Earth-like planet shader's 
-color texture. Future tutorials will include more advanced techniques like cubemap baking, normal and other mask baking,
+In this tutorial, we'll set up **equirectangular texture baking** for a simple Earth-like planet shader's 
+color texture. The same approach extends to more advanced techniques like cubemap baking, normal and other mask baking,
 and flowmaps for gas giants and stars.
 
 ## Project Setup
@@ -416,7 +416,7 @@ We need to set the Mip Sampling Mode on our Sample Texture 2D node to Gradient:
 And connect our normalized position to the DDX and DDY inputs via DDX and DDY nodes:
 ![DDX DDY Nodes](../../assets/images/blog/planet-texture-baking/ddx-ddy-nodes.png)
 
-This fixes the seam problem and completes this part of the tutorial!
+This fixes the seam problem and completes the tutorial!
 
 [Completed project](https://github.com/Parallel-Cascades/planet-texture-baking/tree/part-1)
 
@@ -431,10 +431,8 @@ they actually represent on the planet surface.
 In practice, this makes the poles appear more clear and high-res compared to the rest of the planet, and consequently
 the equatorial areas look blurrier.
 
-In the next tutorial, I will show you a method to bake textures using a cubemap projection instead, which addresses this issue:
+Baking textures using a cubemap projection instead addresses this issue, as it distributes pixels much more evenly across the sphere:
 ![Cubemap](../../assets/images/blog/planet-texture-baking/cubemap.png)
 
 If you'd like to practice with more complex planet shaders, the [Procedural Planet Generation Lite Samples](https://assetstore.unity.com/packages/vfx/shaders/procedural-planet-generation-lite-sample-pack-296362) asset is **free**
 on the Unity Asset Store and contains moons, more advanced Earth-like planets, gas giants, and stars.
-
-If this tutorial was useful to you, and you would like to see more like it, consider supporting me on [Ko-fi](https://ko-fi.com/parallelcascades)
